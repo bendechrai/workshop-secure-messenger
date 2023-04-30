@@ -46,7 +46,7 @@ function App() {
 
   return (
     <div className="App">
-      {!passphrase && <GetPassphrase firstTime={!keys} callback={setPassphrase} />}
+      {!passphrase && <GetPassphrase firstTime={!keys} keys={keys} callback={setPassphrase} />}
       {passphrase && !keys && <>
         <p>Generating Keys</p>
       </>}

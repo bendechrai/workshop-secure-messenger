@@ -1,12 +1,17 @@
 import { useState } from 'react';
+import { verifyPassphrase } from '../functions/pgp';
 
-export const GetPassphrase = ({ firstTime, callback }) => {
+export const GetPassphrase = ({ firstTime, keys, callback }) => {
   const [passphrase1, setPassphrase1] = useState('');
   const [passphrase2, setPassphrase2] = useState('');
   const [mismatch, setMismatch] = useState(false);
+  const [isWrongPassphrase, setIsWrongPassphrase] = useState(false);
 
   const handlePassphrase = (event) => {
     event.preventDefault();
+
+    setIsWrongPassphrase(false);
+
     if (firstTime) {
       if (passphrase1 !== passphrase2) {
         setMismatch(true);
@@ -18,7 +23,13 @@ export const GetPassphrase = ({ firstTime, callback }) => {
 
     if (!firstTime) {
       setMismatch(false);
-      callback(passphrase1);
+      verifyPassphrase(keys, passphrase1).then(valid => {
+        if (valid) {
+          callback(passphrase1);
+        } else {
+          setIsWrongPassphrase(true);
+        }
+      })
     }
   };
 
@@ -34,8 +45,11 @@ export const GetPassphrase = ({ firstTime, callback }) => {
 
   return <>
     <form onSubmit={handlePassphrase}>
+      <h2>Welcome back!</h2>
+      <p>Provide your encryption passphrase to be able to read your messages.</p>
       <p>Passphrase <input type="text" name="test" value={passphrase1} onChange={(e) => setPassphrase1(e.target.value)} /></p>
-      <button type="submit">Set Passphrase</button>
+      {isWrongPassphrase && <><p>Passphrase is incorrect</p></>}
+      <button type="submit">Read My Messages</button>
     </form>
   </>;
 };
