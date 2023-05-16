@@ -1,8 +1,9 @@
-import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
-import './App.css';
+import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 import { GetPassphrase } from './components/GetPassphrase';
+import { Messages } from './components/Messages';
 import { generateKeys } from './functions/pgp';
+import './App.css';
 
 function App() {
 
@@ -13,17 +14,19 @@ function App() {
   useEffect(() => {
     if (isAuthenticated) {
 
-
+      // Does the user object contain Auth0 user_metadata?
       if (!user['http://localhost:8888/user_metadata']) {
-        console.error("ID Token didn't contain user_metedata");
+        console.error("ID Token didn't contain user_metadata");
         return;
       }
 
+      // Get the keys object from the user_metadata
       if (user['http://localhost:8888/user_metadata'].keys) {
         setKeys(user['http://localhost:8888/user_metadata'].keys);
         return;
       }
 
+      // We haven't found any keys. If we have the user's passphrase, generate a new keypair
       if (passphrase) {
         generateKeys("Anonymous", user.email, passphrase).then(keys => {
           setKeys(keys);
@@ -33,31 +36,28 @@ function App() {
               body: JSON.stringify({
                 'userId': user.sub,
                 'accessToken': accessToken,
-                'data': { 'user_metadata': { keys } }
+                'data': keys
               })
             })
           });
-
         });
+
       }
 
     }
-  }, [isAuthenticated, user, passphrase, setKeys, getAccessTokenSilently])
+  }, [isAuthenticated, user, passphrase, setKeys, getAccessTokenSilently]);
 
   return (
     <div className="App">
-      {!passphrase && <GetPassphrase firstTime={!keys} keys={keys} callback={setPassphrase} />}
-      {passphrase && !keys && <>
-        <p>Generating Keys</p>
-      </>}
-      <button onClick={logout}>Logout</button>
+      <header>
+        <button onClick={logout}>Logout</button>
+      </header>
 
-
-      <pre>{JSON.stringify({
-        passphrase,
-        keys
-      }, null, 4)}</pre>
-
+      <main>
+        {!passphrase && <GetPassphrase firstTime={!keys} keys={keys} callback={setPassphrase} />}
+        {passphrase && !keys && <p>Generating Keys</p>}
+        {passphrase && keys && <Messages keys={keys} passphrase={passphrase} />}
+      </main>
 
     </div>
   );
