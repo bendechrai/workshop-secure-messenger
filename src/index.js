@@ -14,7 +14,7 @@ root.render(
       authorizationParams={{
         redirect_uri: window.location.origin,
         audience: `https://${process.env.REACT_APP_AUTH0_DOMAIN}/api/v2/`,
-        scope: 'update:current_user_metadata'
+        scope: 'openid email profile update:current_user_metadata'
       }}  
     >
       <App />
