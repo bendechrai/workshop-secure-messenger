@@ -50,7 +50,7 @@ export const Message = ({ message, privateKey, passphrase }) => {
   return <div key={message.id} className="message">
     <date>{dayjs.utc(message.created_at).local().format('HH:mm')}</date>
     <span>
-      {sender ? sender : "someone"} wrote:
+      {sender ? sender : "someone"} wrote:{" "}
       <span className='userMessage'>{decryptedMessage ? decryptedMessage : 'Decrypting...'}</span>
     </span>
   </div>;

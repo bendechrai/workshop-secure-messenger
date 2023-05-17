@@ -13,7 +13,7 @@ export const Messages = ({ keys, passphrase }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
 
-  const {user} = useAuth0();
+  const { user } = useAuth0();
 
   useEffect(() => {
 
@@ -46,6 +46,10 @@ export const Messages = ({ keys, passphrase }) => {
       messageSubscription.unsubscribe();
     };
 
+    // We need the supabase client to be available before we can subscribe to changes,
+    // but adding it as a dependency to useEffect will cause an infinite loop.
+    // To avoid this, we can disable the eslint rule for this line.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleFormSubmit = async (event) => {
@@ -56,10 +60,10 @@ export const Messages = ({ keys, passphrase }) => {
     const encryptedMessage = await encryptMessageWithPublicKey(newMessage, publicKeys);
 
     // Encrypt the sender's name
-    const sender=user.nickname;
+    const sender = user.nickname;
     const encryptedSender = await encryptMessageWithPublicKey(sender, publicKeys);
 
-    // Insert the encrypted message into the messages table
+    // Insert the sender and message into the messages table
     await supabase.from('messages').insert([
       {
         sender: encryptedSender,

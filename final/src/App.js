@@ -28,8 +28,12 @@ function App() {
 
       // We haven't found any keys. If we have the user's passphrase, generate a new keypair
       if (passphrase) {
-        generateKeys("Anonymous", user.email, passphrase).then(keys => {
+        generateKeys(user.nickname, user.email, passphrase).then(keys => {
+
+          // Save the keys into this app's state
           setKeys(keys);
+
+          // Save the keys for future retrieval
           getAccessTokenSilently().then(accessToken => {
             fetch(`/.netlify/functions/savekeys`, {
               method: 'post',
@@ -40,8 +44,8 @@ function App() {
               })
             })
           });
-        });
 
+        });
       }
 
     }
