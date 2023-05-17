@@ -1,0 +1,58 @@
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 0;
+}
+
+header {
+    padding: 1em;
+    background-color: cyan;
+    text-align: right;
+}
+
+header button {
+    color: darkcyan;
+    background-color: transparent;
+    border: 3px solid darkcyan;
+    padding: 1em;
+}
+
+header button:hover {
+    color: white;
+    background-color: darkcyan;
+}
+
+main {
+    margin: auto;
+    width: 640px;
+}
+
+h1 {
+    text-align: center;
+}
+
+form.newMessage {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+form.newMessage input {
+    font-size: 1.1rem;
+    width: 100%;
+}
+
+form.newMessage button {
+    font-size: 1.1rem;
+    margin-left: 1em;
+    white-space: nowrap;
+}   
+
+.message date {
+    margin-right: 1em;
+    color: grey;
+}
+
+.message .userMessage {
+    color: cornflowerblue;
+}
