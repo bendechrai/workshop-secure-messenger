@@ -55,13 +55,10 @@ export const Messages = ({ keys, passphrase }) => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    // Get the public keys from supabase and encrypt the message
+    // Get the public keys from supabase and encrypt the sender name and message
     const { data: publicKeys } = await supabase.from('keys').select('*');
     const encryptedMessage = await encryptMessageWithPublicKey(newMessage, publicKeys);
-
-    // Encrypt the sender's name
-    const sender = user.nickname;
-    const encryptedSender = await encryptMessageWithPublicKey(sender, publicKeys);
+    const encryptedSender = await encryptMessageWithPublicKey(user.nickname, publicKeys);
 
     // Insert the sender and message into the messages table
     await supabase.from('messages').insert([

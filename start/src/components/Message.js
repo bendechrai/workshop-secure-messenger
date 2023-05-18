@@ -7,10 +7,8 @@ dayjs.extend(timezone);
 
 export const Message = ({ message }) => {
   return <div key={message.id} className="message">
-    <date>{dayjs.utc(message.created_at).local().format('HH:mm')}</date>
-    <span>
-      {message.sender} wrote:{" "}
-      <span className='userMessage'>{message.message}</span>
-    </span>
+    <span className='date'>{dayjs.utc(message.created_at).local().format('HH:mm')}</span>
+    <span className='sender'>{message.sender} wrote:{" "}</span>
+    <span className='messageText'>{message.message}</span>
   </div>;
 };

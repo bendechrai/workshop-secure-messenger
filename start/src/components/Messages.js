@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
+import { encryptMessageWithPublicKey } from '../functions/pgp';
 import { Message } from './Message';
 import { useAuth0 } from '@auth0/auth0-react';
 

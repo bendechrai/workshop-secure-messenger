@@ -5,20 +5,20 @@ body {
 
 header {
     padding: 1em;
-    background-color: cyan;
+    background-color: darkcyan;
     text-align: right;
 }
 
 header button {
-    color: darkcyan;
+    color: white;
     background-color: transparent;
-    border: 3px solid darkcyan;
+    border: 3px solid white;
     padding: 1em;
 }
 
 header button:hover {
-    color: white;
-    background-color: darkcyan;
+    color: darkcyan;
+    background-color: rgb(228, 183, 183);
 }
 
 main {
@@ -46,13 +46,20 @@ form.newMessage button {
     font-size: 1.1rem;
     margin-left: 1em;
     white-space: nowrap;
-}   
+}
 
-.message date {
+.message {
+    display: flex;
+    flex-direction: row;
+}
+
+.message span {
     margin-right: 1em;
+}
+.message .date {
     color: grey;
 }
 
-.message .userMessage {
-    color: cornflowerblue;
+.message .sender {
+    white-space: nowrap;
 }
