@@ -149,7 +149,7 @@ _💡&nbsp;TIP: This action re-reads the `.env` file so the React application ha
 
 ## Update your application to require authentication
 
-👉 ACTION: Edit the last line of `start/sc/App.js` to read:
+👉 ACTION: Edit the last line of `start/src/App.js` to read:
 
 ```js
 export default withAuthenticationRequired(App);
