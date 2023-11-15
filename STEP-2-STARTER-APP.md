@@ -125,7 +125,7 @@ _💡&nbsp;TIP: The Auth0 values can be found near the top of the settings page 
 
 ![Auth0 Domain and Client ID](readme-images/2-auth0-basic-info.png)
 
-_💡&nbsp;TIP: The Supabase values can be found by clicking on the 🏠 icon in the left menu to go to the project home, and scroll down to find the **"Project API"** details:_
+_💡&nbsp;TIP: The Supabase values can be found by clicking on the ⚙️ icon in the left menu to go to the project settings, and to the **"API"** sub-menu:_
 
 ![Supabase API URL and Keys](readme-images/2-supabase-apikeys.png)
 
